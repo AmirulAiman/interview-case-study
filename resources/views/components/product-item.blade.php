@@ -29,7 +29,7 @@
         </div>
 
         {{-- Rating --}}
-        <span class="flex items-center mt-1 text-yellow-400">
+        {{-- <span class="flex items-center mt-1 text-yellow-400">
             <i class="fa-solid fa-star"></i>
             <i class="fa-solid fa-star"></i>
             <i class="fa-solid fa-star"></i>
@@ -37,26 +37,38 @@
             <span class="text-2xl ml-2 text-gray-500">
                 150 Reviews
             </span>
-        </span>
+        </span> --}}
 
         {{-- Action Button --}}
         <div class="mt-5 flex gap-2">
-            <form action="#" method="POST">
+            @if(Auth::check() && Auth::user()->role->role == "admin")
+                <a href="{{ route('product.show', ['product' => $product->slug]) }}"
+                    class="flex-grow flex justify-center bg-yellow-800 hover:bg-yellow-500/90 hover:text-gray-800 px-6 py-2 rounded-md text-white font-medium tracking-wider
+                    transition">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                </a>
+                <a href="{{ route('product.show', ['product' => $product->slug]) }}"
+                    class="flex-grow flex justify-center items-center bg-gray-300/60 hover:bg-gray-300/80 transition rounded-md">
+                    <i class="fa-sharp fa-regular fa-eye opacity-50"></i>
+                </a>
+            @else
+            <form action="{{ route('cart.store') }}" method="POST">
                 @csrf
                 <button type="submit"
-                    class="bg-yellow-800 hover:bg-yellow-500/90 hover:text-gray-800 px-6 py-2 rounded-md text-white font-medium tracking-wider transition"
-                    name="addToCart" value="{{ $product->id }}">
+                    class="flex-grow flex justify-center bg-yellow-800 hover:bg-yellow-500/90 hover:text-gray-800 px-6 py-2 rounded-md text-white font-medium tracking-wider transition"
+                    name="product_id" value="{{ $product->id }}">
                     Add to Cart
                 </button>
             </form>
-            {{-- <button
-                class="flex-grow flex justify-center items-center bg-gray-300/60 hover:bg-gray-300/80 transition rounded-md">
-                <i class="fa-solid fa-heart opacity-50"></i>
-            </button> --}}
             <a href="{{ route('product.show', ['product' => $product->slug]) }}"
                 class="flex-grow flex justify-center items-center bg-gray-300/60 hover:bg-gray-300/80 transition rounded-md">
                 <i class="fa-sharp fa-regular fa-eye opacity-50"></i>
             </a>
+            @endunless
+            {{-- <button
+                class="flex-grow flex justify-center items-center bg-gray-300/60 hover:bg-gray-300/80 transition rounded-md">
+                <i class="fa-solid fa-heart opacity-50"></i>
+            </button> --}}
         </div>
     </div>
 </div>
