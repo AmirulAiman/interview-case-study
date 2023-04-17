@@ -18,11 +18,6 @@
                     <x-nav-link :href="route('product.index')" :active="request()->routeIs('product.index')">
                         {{ __('Products') }}
                     </x-nav-link>
-                    @auth
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
-                    @endauth
                 </div>
             </div>
 
@@ -47,8 +42,14 @@
                     </x-slot>
 
                     <x-slot name="content">
+                        <x-dropdown-link :href="route('dashboard')">
+                            {{ __('Dashboard') }}
+                        </x-dropdown-link>
                         <x-dropdown-link :href="route('profile.edit')">
                             {{ __('Profile') }}
+                        </x-dropdown-link>
+                        <x-dropdown-link :href="route('cart.history')">
+                            {{ __('Order History') }}
                         </x-dropdown-link>
 
                         <!-- Authentication -->
@@ -120,6 +121,9 @@
             <div class="mt-3 space-y-1">
                 <x-responsive-nav-link :href="route('profile.edit')">
                     {{ __('Profile') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('cart.history')">
+                    {{ __('Order History') }}
                 </x-responsive-nav-link>
 
                 <!-- Authentication -->

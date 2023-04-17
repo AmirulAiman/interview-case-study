@@ -42,6 +42,19 @@ class CartService{
     {
         session()->forget("cart");
     }
+    
+    /**
+     * Remove product from cart session
+     * @param Product $product
+     */
+    public function removeProductFromCart(Product $product)
+    {
+        $cart = session()->get('cart',[]);
+        if(isset($cart[$product->id])){
+            unset($cart[$product->id]);
+        }
+        session()->put("cart",$cart);
+    }
 
     /**
      * Process and save the cart detail

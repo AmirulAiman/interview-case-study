@@ -64,7 +64,10 @@ Route::prefix('cart')->group(function() {
     Route::put('/{cart}/update',[CartController::class,'update'])->name('cart.update');
     Route::get('/{cart}/detail', [CartController::class,'show'])->name('cart.show');
     Route::post('/checkout', [CartController::class,'checkout'])->name('cart.checkout');
-    Route::get('/clear', [CartController::class,'clear'])->name('cart.clear');
+    Route::get('/{product}/remove',[CartController::class,'remove'])->name('cart.remove');
+    Route::post('/clear', [CartController::class,'clear'])->name('cart.clear');
+    Route::get('/history/{filter?}',[CartController::class,'history'])->name('cart.history');
+    
 })->middleware(['auth']);
 
 require __DIR__.'/auth.php';

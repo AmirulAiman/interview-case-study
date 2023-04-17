@@ -39,19 +39,24 @@
                             </tbody>
                         </table>
                         <div class="w-full flex justify-end space-x-1">
-                            <x-primary-button 
-                                class="bg-yellow-800 hover:bg-yellow-500/90 hover:text-gray-800 px-6 py-2 rounded-md text-white font-medium tracking-wider transition"
-                            >
-                                {{ __("Checkout") }}
-                            </x-primary-button>
-                            <a 
-                                class="bg-gray-800 hover:bg-gray-500/90 hover:text-white px-6 py-2 rounded-md text-gray-200 font-medium tracking-wider transition"
-                                href="{{ route("cart.clear") }}"
-                            >
-                            Clear Cart
-                            </a>
+                            <h1 class="text-2xl font-[Poppins] text-gray-800 mx-2">Total: <span>RM {{ $total ?? "0.00" }}</span></h1>
+                            <form action="{{ route('cart.checkout') }}" method="POST">
+                                @csrf
+                                <x-primary-button 
+                                    class="bg-yellow-800 hover:bg-yellow-500/90 hover:text-gray-800 px-6 py-2 rounded-md text-white font-medium tracking-wider transition"
+                                >
+                                    {{ __("Checkout") }}
+                                </x-primary-button>
+                            </form>
+                            <form action="{{ route('cart.clear') }}" method="POST">
+                                @csrf
+                                <x-primary-button 
+                                    class="bg-gray-800 hover:bg-gray-500/90 hover:text-gray-800 px-6 py-2 rounded-md text-white font-medium tracking-wider transition"
+                                >
+                                    {{ __("Clear Cart") }}
+                                </x-primary-button>
+                            </form>
                         </div>
-                    </form>
                     @endunless
                 </div>
             </div>
