@@ -11,6 +11,7 @@ use Illuminate\View\View;
 
 use App\Services\ProductService;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Log;
 
 class ProductController extends Controller
 {
@@ -30,7 +31,7 @@ class ProductController extends Controller
             'products' => $products
         ]);
     }
-
+    
     /**
      * Show the form for creating a new resource.
      */
@@ -39,12 +40,13 @@ class ProductController extends Controller
         $brands = Brand::all();
         $categories = Category::all();
         
+        Log::channel("custom")->info(Auth::user()->email." visit product create page");
         return view('products.form',[
             'brands' => $brands,
             'categories' => $categories
         ]);
     }
-
+    
     /**
      * Store a newly created resource in storage.
      */
@@ -52,10 +54,13 @@ class ProductController extends Controller
     {
         try {
             $product = $this->productService->saveProduct($request);
+            Log::channel("custom")->info(Auth::user()->email." create ".$product->id);
             notify()->success("Create success!");
             return redirect()->back();
         } catch (\Throwable $th) {
             //throw $th;
+            Log::channel("custom")->info("Failed to create product");
+            Log::channel("custom")->info($th->getMessage());
             notify()->error("Failed to create new product!!");
             return redirect()->back()->with(['error' => 'Failed','msg' => $th->getMessage()]);
         }
@@ -79,14 +84,15 @@ class ProductController extends Controller
     {
         $brands = Brand::all();
         $categories = Category::all();
-
+        Log::channel("custom")->info(Auth::user()->email." edit ".$product->id);
+        
         return view('products.form', [
             'brands' => $brands,
             'categories' => $categories,
             'product' => $product
         ]);
     }
-
+    
     /**
      * Update the specified resource in storage.
      */
@@ -94,10 +100,13 @@ class ProductController extends Controller
     {
         try {
             $product = $this->productService->updateProduct($request, $product);
+            Log::channel("custom")->info(Auth::user()->email." successfully edit ".$product->id);
             notify()->success("Update success!");
             return redirect()->back();
         } catch (\Throwable $th) {
             //throw $th;
+            Log::channel("custom")->info("Failed to update");
+            Log::channel("custom")->info($th->getMessage());
             notify()->error('Failed to update');
             return redirect()->back()->with(['error' => 'Failed', 'msg' => $th->getMessage()]);
         }

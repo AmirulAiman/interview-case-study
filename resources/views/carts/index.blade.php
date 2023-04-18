@@ -15,25 +15,25 @@
                     @else
                     <form action="{{ route('cart.checkout') }}" method="POST">
                         @csrf
-                        <table class="w-full">
-                            <thead>
-                                <td>#</td>
-                                <td>Product Name</td>
-                                <td>Amount</td>
-                                <td>Action</td>
+                        <table class="w-full font-[Poppins] mb-6 shadow-lg rounded-md border-b-2">
+                            <thead class="bg-gray-50 border-b-2 border-gray-500">
+                                <th class="text-md text-left px-6 py-3 w-1/12">#</th>
+                                <th class="text-md px-6 py-3 w-3/4">Product Name</th>
+                                <th class="text-md px-6 py-3 w-1/4">Amount</th>
+                                <th class="text-md px-6 py-3 w-3/4">Action</th>
                             </thead>
-                            <tbody>
+                            <tbody class="">
                                 @foreach ($products as $product)
                                     <tr>
-                                        <td>1</td>
-                                        <td>
+                                        <td class="text-left px-3 py-1">1</td>
+                                        <td class="text-left px-2 py-1">
                                             <a href="{{ route("product.show",["product" => $product->slug]) }}" class="flex px-3 py-2 overflow-auto">
                                                 <img class="w-1/5 h-1/5 object-cover rounded-md" src="{{ asset('images/'.$product->img_name) }}" alt="{{ $product->name }}">
                                                 {{ $product->name }}
                                             </a>
                                         </td>
-                                        <td>{{ $cart[$product->id]['quantity'] }}</td>
-                                        <td>Action</td>
+                                        <td class="text-center px-2 py-1">{{ $cart[$product->id]['quantity'] }}</td>
+                                        <td class="text-center px-2 py-1">Action</td>
                                     </tr>
                                 @endforeach
                             </tbody>
