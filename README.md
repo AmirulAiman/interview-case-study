@@ -46,7 +46,7 @@ ___
 # Setup
 - Run `composer install` & `npm run dev` after clone this git repo.
 - Create database in the database server
-- Copy env.local to .env and update the following
+- Copy `.env.example` to .env and update the following
     <pre>
         <code>
         DB_CONNECTION=mysql
